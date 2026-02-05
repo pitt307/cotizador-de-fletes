@@ -1,0 +1,65 @@
+:root {
+    --primary: #FF8C66;
+    --primary-dark: #e67350;
+    --primary-light: #ffb399;
+    --secondary: #1e293b;
+    --accent: #3b82f6;
+    
+
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #06b6d4;
+    
+    --bg-body: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-hover: #f1f5f9;
+    --bg-result: #fff7ed;
+    --bg-panel: #fafafa;
+    
+   
+    --text-main: #1e293b;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --text-white: #ffffff;
+    
+   
+    --border-color: #e2e8f0;
+    --border-radius: 16px;
+    --border-radius-sm: 8px;
+    --border-radius-lg: 20px;
+    
+  
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 30px -5px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
+    
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --spacing-xl: 30px;
+    --spacing-2xl: 40px;
+    --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 0.95rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.2s ease;
+    --transition-slow: 0.3s ease;
+    --z-dropdown: 1000;
+    --z-modal: 2000;
+    --z-notification: 3000;
+}
+
+@media print {
+    :root {
+        --bg-body: white;
+        --bg-card: white;
+        --shadow: none;
+    }
+}

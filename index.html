@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cotizador de Fletes - Calcula costos de envío según peso físico o volumétrico">
+    <meta name="author" content="Daniel L.">
+    <title>Cotizador de Fletes - Envíos Express</title>
+    
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Estilos CSS Modulares -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- ========== HEADER ========== -->
+        <header class="main-header">
+            <div class="brand">
+                <h1>
+                    <i class="fas fa-shipping-fast"></i>
+                    Cotizador Express
+                </h1>
+                <span>Sistema de Cálculo de Fletes</span>
+            </div>
+            <div class="user-profile">
+                <div class="avatar-circle">DL</div>
+                <span class="user-name">Daniel L.</span>
+            </div>
+        </header>
+
+        <!-- ========== MAIN CONTENT ========== -->
+        <div class="main-content">
+            
+            <!-- CALCULADORA PRINCIPAL -->
+            <div class="calculator-card">
+                <div class="card-header">
+                    <h2>Nueva Cotización</h2>
+                    <p>Calcula el costo de envío según peso o volumen</p>
+                    <i class="fas fa-box-open header-icon"></i>
+                </div>
+
+                <div class="card-body">
+                    <form id="quote-form">
+                        <!-- Selector de Moneda -->
+                        <div class="input-group">
+                            <label class="label">
+                                <i class="fas fa-dollar-sign"></i>
+                                Moneda
+                            </label>
+                            <select id="currency" class="input-field">
+                                <option value="USD">USD - Dólar Americano</option>
+                                <option value="PEN" selected>PEN - Sol Peruano</option>
+                                <option value="EUR">EUR - Euro</option>
+                            </select>
+                        </div>
+
+                        <!-- Tarifa por KG -->
+                        <div class="input-group">
+                            <label class="label">
+                                <i class="fas fa-tags"></i>
+                                Tarifa por Kilogramo
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="currency-symbol">S/</span>
+                                <input 
+                                    type="number" 
+                                    id="rate" 
+                                    class="input-field input-with-symbol" 
+                                    value="5.00" 
+                                    step="0.01"
+                                    min="0.01">
+                            </div>
+                        </div>
+
+                        <!-- Peso Físico -->
+                        <div class="input-group">
+                            <label class="label">
+                                <i class="fas fa-weight-hanging"></i>
+                                Peso Físico
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="weight" 
+                                    class="input-field" 
+                                    placeholder="0.00"
+                                    step="0.01"
+                                    min="0">
+                                <span class="unit">KG</span>
+                            </div>
+                        </div>
+
+                        <!-- Dimensiones -->
+                        <div class="input-group">
+                            <label class="label">
+                                <i class="fas fa-ruler-combined"></i>
+                                Dimensiones del Paquete
+                            </label>
+                            <div class="dimensions-grid">
+                                <div class="input-wrapper">
+                                    <input 
+                                        type="number" 
+                                        id="length" 
+                                        class="input-field" 
+                                        placeholder="Largo"
+                                        step="0.1"
+                                        min="0">
+                                    <span class="unit">CM</span>
+                                </div>
+                                <div class="input-wrapper">
+                                    <input 
+                                        type="number" 
+                                        id="width" 
+                                        class="input-field" 
+                                        placeholder="Ancho"
+                                        step="0.1"
+                                        min="0">
+                                    <span class="unit">CM</span>
+                                </div>
+                                <div class="input-wrapper">
+                                    <input 
+                                        type="number" 
+                                        id="height" 
+                                        class="input-field" 
+                                        placeholder="Alto"
+                                        step="0.1"
+                                        min="0">
+                                    <span class="unit">CM</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botones de Acción -->
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-calculator"></i>
+                                Calcular Tarifa
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="QuoteUI.clearForm()">
+                                <i class="fas fa-eraser"></i>
+                                Limpiar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Sección de Resultados -->
+                <div class="result-section" id="result">
+                    <div class="result-header">
+                        <h3>Resultado de Cotización</h3>
+                        <div class="result-actions">
+                            <button class="btn-icon" onclick="QuoteUI.saveToFavorites()" title="Guardar en favoritos">
+                                <i class="fas fa-star"></i>
+                            </button>
+                            <button class="btn-icon" onclick="window.print()" title="Imprimir">
+                                <i class="fas fa-print"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="result-details">
+                        <div class="result-row">
+                            <span>Peso Físico:</span>
+                            <strong id="res-physical">0.00 kg</strong>
+                        </div>
+                        <div class="result-row">
+                            <span>Peso Volumétrico:</span>
+                            <strong id="res-volumetric" class="highlight">0.00 kg</strong>
+                        </div>
+                        <div class="result-row">
+                            <span>Factor Divisor:</span>
+                            <strong id="res-factor">5000</strong>
+                        </div>
+                        <div class="result-row">
+                            <span>Peso Cobrable:</span>
+                            <strong id="res-chargeable">0.00 kg</strong>
+                        </div>
+                        <div class="result-row">
+                            <span>Tipo de Cobro:</span>
+                            <strong id="res-type" class="badge">--</strong>
+                        </div>
+                    </div>
+
+                    <div class="result-total">
+                        <span class="total-label">Costo Total Estimado</span>
+                        <span class="total-price" id="res-price">S/ 0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL LATERAL -->
+            <div class="side-panel">
+                
+                <!-- Favoritos -->
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-star"></i> Favoritos</h3>
+                        <button class="btn-clear" onclick="QuoteManager.clearFavorites()">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="favorites-list" id="favorites-list">
+                        <div class="empty-state">
+                            <i class="fas fa-star"></i>
+                            <p>No hay favoritos guardados</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Historial -->
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-history"></i> Historial</h3>
+                        <button class="btn-clear" onclick="QuoteManager.clearHistory()">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="history-list" id="history-list">
+                        <div class="empty-state">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>No hay cotizaciones recientes</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========== SCRIPTS JS MODULARES ========== -->
+    <script src="js/utils.js"></script>
+    <script src="js/currency.js"></script>
+    <script src="js/quote-manager.js"></script>
+    <script src="js/quote-ui.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

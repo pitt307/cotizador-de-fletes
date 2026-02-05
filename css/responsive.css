@@ -1,0 +1,147 @@
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .side-panel {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        padding: var(--spacing-md);
+    }
+    
+    .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-md);
+    }
+    
+    .user-profile {
+        align-self: flex-end;
+    }
+    
+    .brand h1 {
+        font-size: var(--font-size-xl);
+    }
+    
+    .card-header {
+        padding: var(--spacing-lg);
+    }
+    
+    .card-header h2 {
+        font-size: var(--font-size-lg);
+    }
+    
+    .header-icon {
+        font-size: 2rem;
+        right: 15px;
+    }
+    
+    .card-body {
+        padding: var(--spacing-lg);
+    }
+    
+    .side-panel {
+        grid-template-columns: 1fr;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-container {
+        padding: var(--spacing-sm);
+    }
+    
+    .brand h1 {
+        font-size: var(--font-size-lg);
+    }
+    
+    .brand span {
+        font-size: var(--font-size-xs);
+    }
+    
+    .dimensions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-header {
+        padding: var(--spacing-md);
+    }
+    
+    .card-body {
+        padding: var(--spacing-md);
+    }
+    
+    .result-section {
+        padding: var(--spacing-md);
+    }
+    
+    .total-price {
+        font-size: var(--font-size-xl);
+    }
+    
+    .panel-header {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+}
+
+
+@media (max-height: 600px) and (orientation: landscape) {
+    .favorites-list,
+    .history-list {
+        max-height: 200px;
+    }
+}
+
+
+@media print {
+    body {
+        background: white;
+    }
+    
+    .main-header,
+    .side-panel,
+    .button-group,
+    .result-actions,
+    .btn-icon,
+    .btn-clear {
+        display: none !important;
+    }
+    
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .calculator-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+    
+    .card-body {
+        display: none !important;
+    }
+    
+    .result-section {
+        display: block !important;
+        background: white;
+        border-top: 2px solid #333;
+    }
+    
+    .result-header h3::after {
+        content: " - Cotización Impresa";
+        font-size: var(--font-size-sm);
+        color: var(--text-muted);
+    }
+}
